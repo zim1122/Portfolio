@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform, Variants } from "framer-motion";
 import { Trophy, Code, Target, Zap, ExternalLink, BarChart3, Binary, Award } from "lucide-react";
 import { useRef } from "react";
 
@@ -122,7 +122,7 @@ function MagneticTiltCard({ children, className }: { children: React.ReactNode; 
 }
 
 export default function Skills() {
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -132,7 +132,7 @@ export default function Skills() {
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { y: 30, opacity: 0, scale: 0.9 },
     visible: {
       y: 0,

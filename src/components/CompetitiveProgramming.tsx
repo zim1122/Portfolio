@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { Trophy, Code, Award, ExternalLink, Target, Zap } from "lucide-react";
 
 const cpData = [
@@ -45,7 +45,7 @@ const cpData = [
 ];
 
 export default function CompetitiveProgramming() {
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -55,7 +55,7 @@ export default function CompetitiveProgramming() {
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { y: 30, opacity: 0 },
     visible: {
       y: 0,
