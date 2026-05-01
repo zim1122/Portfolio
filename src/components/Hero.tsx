@@ -106,6 +106,7 @@ export default function Hero() {
 
   return (
     <section
+      id="home"
       ref={containerRef}
       className="relative min-h-screen pt-20 overflow-hidden bg-gradient-to-br from-background via-emerald-950/40 to-background"
     >

@@ -69,7 +69,7 @@ export default function Services() {
   };
 
   return (
-    <section id="services" className="py-24 bg-surface-container-lowest relative overflow-hidden">
+    <section id="skill" className="py-24 bg-surface-container-lowest relative overflow-hidden">
       <motion.div
         initial="hidden"
         whileInView="visible"

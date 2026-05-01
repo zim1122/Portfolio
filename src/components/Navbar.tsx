@@ -2,7 +2,7 @@
 
 import { motion, useSpring, useMotionValue, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 
 function MagneticButton({ children, className, onClick }: { children: React.ReactNode; className?: string; onClick?: () => void }) {
@@ -43,7 +43,32 @@ function MagneticButton({ children, className, onClick }: { children: React.Reac
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const navItems = ["Services", "Work", "Testimonials", "About", "Blog"];
+  const [activeSection, setActiveSection] = useState("home");
+  const navItems = ["Home", "Education", "Skill", "Project"];
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + 120; // Offset for navbar height
+
+      for (const item of navItems) {
+        const id = item.toLowerCase();
+        const element = document.getElementById(id);
+        if (element) {
+          const top = element.offsetTop;
+          const bottom = top + element.offsetHeight;
+
+          if (scrollPosition >= top && scrollPosition < bottom) {
+            setActiveSection(id);
+          }
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll(); // Initial check
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <motion.nav
@@ -72,21 +97,34 @@ export default function Navbar() {
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-8">
-          {navItems.map((item, i) => (
-            <motion.div
-              key={item}
-              initial={{ y: -20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.3 + i * 0.1, duration: 0.5, ease: "easeOut" }}
-            >
-              <Link
-                href={`#${item.toLowerCase()}`}
-                className="text-white/80 font-medium hover:text-primary transition-all duration-300 block"
+          {navItems.map((item, i) => {
+            const isActive = activeSection === item.toLowerCase();
+            return (
+              <motion.div
+                key={item}
+                initial={{ y: -20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.3 + i * 0.1, duration: 0.5, ease: "easeOut" }}
+                className="relative"
               >
-                {item}
-              </Link>
-            </motion.div>
-          ))}
+                <Link
+                  href={`#${item.toLowerCase()}`}
+                  className={`font-bold transition-all duration-300 block relative ${
+                    isActive ? "text-primary scale-110" : "text-white/60 hover:text-white"
+                  }`}
+                >
+                  {item}
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeTab"
+                      className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary rounded-full"
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                </Link>
+              </motion.div>
+            );
+          })}
         </div>
 
         <div className="flex items-center gap-4">
@@ -123,22 +161,28 @@ export default function Navbar() {
             className="md:hidden bg-emerald-950/95 backdrop-blur-2xl border-b border-white/10 overflow-hidden"
           >
             <div className="flex flex-col p-8 gap-6">
-              {navItems.map((item, i) => (
-                <motion.div
-                  key={item}
-                  initial={{ x: -20, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ delay: i * 0.1 }}
-                >
-                  <Link
-                    href={`#${item.toLowerCase()}`}
-                    onClick={() => setIsOpen(false)}
-                    className="text-2xl text-white font-bold hover:text-primary transition-colors"
+              {navItems.map((item, i) => {
+                const isActive = activeSection === item.toLowerCase();
+                return (
+                  <motion.div
+                    key={item}
+                    initial={{ x: -20, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ delay: i * 0.1 }}
                   >
-                    {item}
-                  </Link>
-                </motion.div>
-              ))}
+                    <Link
+                      href={`#${item.toLowerCase()}`}
+                      onClick={() => setIsOpen(false)}
+                      className={`text-2xl font-bold transition-colors flex items-center gap-3 ${
+                        isActive ? "text-primary" : "text-white"
+                      }`}
+                    >
+                      {isActive && <span className="w-2 h-2 rounded-full bg-primary" />}
+                      {item}
+                    </Link>
+                  </motion.div>
+                );
+              })}
               <MagneticButton 
                 onClick={() => setIsOpen(false)}
                 className="bg-primary text-on-primary-container px-6 py-4 rounded-xl font-bold mt-4"
@@ -152,4 +196,3 @@ export default function Navbar() {
     </motion.nav>
   );
 }
-

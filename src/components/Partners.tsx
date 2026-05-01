@@ -20,7 +20,7 @@ const partners = [
 
 export default function Partners() {
   return (
-    <div className="bg-background py-12 border-y border-white/5">
+    <div id="partners" className="bg-background py-12 border-y border-white/5">
       <div className="max-w-7xl mx-auto px-8">
         <p className="text-[12px] text-on-surface-variant/60 mb-8 font-bold uppercase tracking-widest text-center md:text-left">
           Trusted by leading companies
