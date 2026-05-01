@@ -59,9 +59,21 @@
   --spacing-margin-mobile: 16px;
 }
 
-:root {
-  --background: #101415;
+:root,
+html.dark {
+  --background: #050505;
   --foreground: #e0e3e5;
+  --nav-bg: rgba(5, 5, 5, 0.35);
+  --nav-border: rgba(255, 255, 255, 0.08);
+  --card-bg: rgba(255, 255, 255, 0.03);
+}
+
+html.light {
+  --background: #ffffff;
+  --foreground: #111714;
+  --nav-bg: rgba(255, 255, 255, 0.75);
+  --nav-border: rgba(0, 0, 0, 0.08);
+  --card-bg: rgba(255, 255, 255, 0.7);
 }
 
 html.lenis,
@@ -121,4 +133,10 @@ body::after {
 
 .animate-gradient-x {
   animation: gradient-x 5s ease infinite;
+}
+
+@keyframes gradientShift {
+  0%   { background-position: 0%   50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0%   50%; }
 }

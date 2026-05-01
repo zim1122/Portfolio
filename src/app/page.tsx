@@ -3,7 +3,8 @@ import Hero from "@/components/Hero";
 import Education from "@/components/Education";
 import Skills from "@/components/Skills";
 import Projects from "@/components/Projects";
-import Partners from "@/components/Partners";
+import Contact from "@/components/Contact";
+
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -14,7 +15,8 @@ export default function Home() {
       <Education />
       <Skills />
       <Projects />
-      <Partners />
+      <Contact />
+
       <Footer />
     </main>
   );
